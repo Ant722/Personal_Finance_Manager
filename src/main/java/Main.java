@@ -21,6 +21,7 @@ public class Main {
 
 
         try (ServerSocket serverSocket = new ServerSocket(PORT);) { // стартуем сервер один(!) раз
+            System.out.println("Сервер запущен");
             while (true) { // в цикле(!) принимаем подключения
                 try (
                         Socket socket = serverSocket.accept();
@@ -28,15 +29,16 @@ public class Main {
                         PrintWriter out = new PrintWriter(socket.getOutputStream());
                 ) {
                     System.out.println("Подключен клиент" + socket.getPort());
-                    Gson gson = builder.setPrettyPrinting().create();
-                    FileReader reader = new FileReader(in.readLine());
+                    String str = in.readLine();
+                    Gson gson = new Gson();
 
 
-                   Purchase purchase = gson.fromJson(reader, Purchase.class);
+                   Purchase purchase = gson.fromJson(str, Purchase.class);
                     statistics.addPurchase(purchase);
 
                     Gson gson1 = builder.setPrettyPrinting().create();
                     out.write(gson1.toJson(statistics.Statistics()));
+                    System.out.println(gson1.toJson(statistics.Statistics()));
 
 
                 } catch (IOException ex) {

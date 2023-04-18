@@ -13,6 +13,7 @@ public class Statistics {
 
     private HashMap<String, Integer> maxCategory = new HashMap<>();
 
+
     public static void loadTsvFile(String file) {
         try (BufferedReader TSVFile =
                      new BufferedReader(new FileReader(file))) {
@@ -58,12 +59,8 @@ public class Statistics {
         String category = maxCategory.keySet().stream()
                 .max(Comparator.comparing(maxCategory::get))
                 .orElse(null);
-        String request = "maxCategory" + ':' +" "+ '{' +
-                 "category " + ':' + " " + category +
-                ", sum " + ':' + " " + maxCategory.get(category) + '}';
-
-        System.out.println(request);
-        return request;
+        MaxCategory maxCategor = new MaxCategory(category, maxCategory.get(category));
+        return maxCategor;
 
     }
 
@@ -73,4 +70,5 @@ public class Statistics {
                 "maxCategory=" + maxCategory +
                 '}';
     }
+
 }
