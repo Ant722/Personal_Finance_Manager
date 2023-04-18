@@ -70,5 +70,8 @@ public class Statistics {
                 "maxCategory=" + maxCategory +
                 '}';
     }
+    public HashMap<String, Integer> getMaxCategory() {
+        return maxCategory;
+    }
 
 }
