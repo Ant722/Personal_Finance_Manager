@@ -11,16 +11,13 @@ import java.util.HashMap;
 public class StatisticsTest extends TestCase {
     Statistics statistics = new Statistics();
 
-
-    public void tearDown() throws Exception {
-    }
     @Test
     public void testLoadTsvFile() {
         Statistics.loadTsvFile("categories.tsv");
         int actual = Statistics.allCategory.size();
         int expected = 8;
 
-        String actualKey = "тапки";
+        String actualKey = "булка";
         String actualValue = "быт";
 
         Assertions.assertEquals(expected,actual);
