@@ -31,13 +31,12 @@ public class Main implements Serializable{
                         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         PrintWriter out = new PrintWriter(socket.getOutputStream());
                 ) {
-                    System.out.println("Подключен клиент" + socket.getPort());
+                    System.out.println("Новая покупка");
                     String str = in.readLine();
                     Gson gson = new Gson();
 
 
                     Purchase purchase = gson.fromJson(str, Purchase.class);
-                    System.out.println(purchase.toString());
                     statistics.addPurchase(purchase);
 
                     GsonBuilder builder = new GsonBuilder();
