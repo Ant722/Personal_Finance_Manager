@@ -1,8 +1,10 @@
 package org.example;
 
-public class MaxCategory {
-     private String category;
-     private int sum;
+import java.io.Serializable;
+
+public class MaxCategory implements Serializable {
+    private String category;
+    private int sum;
 
     public MaxCategory(String category, int sum) {
         this.category = category;
