@@ -8,8 +8,9 @@ import org.json.simple.parser.ParseException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Purchase {
+public class Purchase implements Serializable {
     private String title;
     private String data;
     private int sum;

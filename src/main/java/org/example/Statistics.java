@@ -1,17 +1,17 @@
 package org.example;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.io.*;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
+
+import static org.example.ServerConfigurations.dataFile;
 
 
-public class Statistics {
-    public static HashMap<String, String> allCategory = new HashMap<>();
+public class Statistics implements Serializable {
 
-    private HashMap<String, Integer> maxCategory = new HashMap<>();
+    public static Map<String, String> allCategory = new HashMap<>();
+
+    private List<Purchase> purchases = new ArrayList<>();
+
 
 
     public static void loadTsvFile(String file) {
@@ -27,48 +27,62 @@ public class Statistics {
             throw new RuntimeException(e);
         }
     }
+    public void addPurchase(Purchase purchase) throws IOException {
+        purchases.add(purchase);
+        saveData();
+    }
+    public void saveData() throws IOException {
 
-    public void addPurchase(Purchase p) throws FileNotFoundException {
-
-        String name = p.getTitle();
-        int sum = p.getSum();
-        if (allCategory.containsKey(name)) {
-
-            String category = allCategory.get(name);
-
-            if (maxCategory.containsKey(category)) {
-
-                sum += maxCategory.get(category);
-                maxCategory.put(category, sum);
-
-            } else {
-                maxCategory.put(category, sum);
-            }
-        } else if (maxCategory.containsKey("другое")) {
-
-            sum += maxCategory.get("другое");
-            maxCategory.put("другое", sum);
-        } else {
-            maxCategory.put("другое", sum);
-
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(dataFile))) {
+            out.writeObject(this.purchases);
         }
     }
 
-    public Object Statistics() {
+    public static List<Purchase> loadDataFile(File file) throws IOException, ClassNotFoundException {
 
-        String category = maxCategory.keySet().stream()
-                .max(Comparator.comparing(maxCategory::get))
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(file))) {
+
+            return (List<Purchase>) inputStream.readObject();
+        }
+    }
+    public List<Purchase> getPurchases() {
+        return purchases;
+    }
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
+    }
+
+    public Object statistic() {
+        Map<String, Integer> historeCategory = new HashMap<>();
+        for (Purchase p : purchases) {
+
+            String name = p.getTitle();
+            int sum = p.getSum();
+            if (allCategory.containsKey(name)) {
+
+                String category = allCategory.get(name);
+
+                if (historeCategory.containsKey(category)) {
+
+                    sum += historeCategory.get(category);
+                    historeCategory.put(category, sum);
+
+                } else {
+                    historeCategory.put(category, sum);
+                }
+            } else if (historeCategory.containsKey("другое")) {
+
+                sum += historeCategory.get("другое");
+                historeCategory.put("другое", sum);
+            } else {
+                historeCategory.put("другое", sum);
+            }
+
+        }
+        String category = historeCategory.keySet().stream()
+                .max(Comparator.comparing(historeCategory::get))
                 .orElse(null);
-        MaxCategory maxCategor = new MaxCategory(category, maxCategory.get(category));
-        return maxCategor;
+        return new MaxCategory(category,historeCategory.get(category));
 
     }
-
-    @Override
-    public String toString() {
-        return "Statistics{" +
-                "maxCategory=" + maxCategory +
-                '}';
-    }
-
 }
