@@ -43,7 +43,7 @@ public class StatisticsTest extends TestCase implements Serializable {
         int expected = 1;
 
         Assertions.assertEquals(actual, expected);
-        Assertions.assertTrue(new File("testData.bin").exists());
+        Assertions.assertTrue(new File("data.bin").exists());
     }
 
     @Test
