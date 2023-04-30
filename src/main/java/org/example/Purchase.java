@@ -1,13 +1,6 @@
 package org.example;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.json.simple.parser.ParseException;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.Serializable;
 
 public class Purchase implements Serializable {

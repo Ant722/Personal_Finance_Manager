@@ -10,9 +10,9 @@ import java.net.Socket;
 import static org.example.ServerConfigurations.*;
 
 
-public class Main implements Serializable{
+public class Main implements Serializable {
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         Statistics.loadTsvFile(TsvFile);
         Statistics statistics = new Statistics();
 
@@ -21,7 +21,7 @@ public class Main implements Serializable{
 
             System.out.println("Сервер запущен");
 
-            if(dataFile.exists() && dataFile.canRead()){
+            if (dataFile.exists() && dataFile.canRead()) {
                 statistics.setPurchases(Statistics.loadDataFile(dataFile));
             }
 
@@ -58,4 +58,3 @@ public class Main implements Serializable{
 
     }
 }
-

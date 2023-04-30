@@ -3,8 +3,8 @@ package org.example;
 import java.io.Serializable;
 
 public class MaxCategory implements Serializable {
-     private String category;
-     private int sum;
+    private String category;
+    private int sum;
 
     public MaxCategory(String category, int sum) {
         this.category = category;
