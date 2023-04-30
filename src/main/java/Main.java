@@ -37,10 +37,11 @@ public class Main implements Serializable{
 
 
                     Purchase purchase = gson.fromJson(str, Purchase.class);
+                    System.out.println(purchase.toString());
                     statistics.addPurchase(purchase);
 
                     GsonBuilder builder = new GsonBuilder();
-                    Gson gson1 = builder.create();
+                    Gson gson1 = builder.setPrettyPrinting().create();
                     out.write(gson1.toJson(statistics.statistic()));
                     System.out.println(gson1.toJson(statistics.statistic()));
 
