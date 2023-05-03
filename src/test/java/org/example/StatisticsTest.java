@@ -2,7 +2,7 @@ package org.example;
 
 import junit.framework.TestCase;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.mockito.Mockito;
 
