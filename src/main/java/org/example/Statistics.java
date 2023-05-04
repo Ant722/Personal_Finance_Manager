@@ -57,27 +57,27 @@ public class Statistics implements Serializable {
     }
 
     public Object statistic() {
-        Map<String, MaxCategory> reqest = new HashMap<>();
+        Map<String, MaxCategory> request = new HashMap<>();
 
-        int lestYear = purchases.stream().mapToInt(Purchase::getYear)
+        int lastYear = purchases.stream().mapToInt(Purchase::getYear)
                 .filter(p -> p >= 0).max().orElse(0);
 
         Collection<Purchase> yearListPurchase = purchases.stream()
-                .filter(p -> p.getYear() == lestYear)
+                .filter(p -> p.getYear() == lastYear)
                 .collect(Collectors.toList());
 
-        int lestMonth = yearListPurchase.stream().mapToInt(Purchase::getMonth)
+        int lastMonth = yearListPurchase.stream().mapToInt(Purchase::getMonth)
                 .filter(p -> p >= 0).max().orElse(0);
 
         Collection<Purchase> monthListPurchase = yearListPurchase.stream()
-                .filter(p -> p.getMonth() == lestMonth)
+                .filter(p -> p.getMonth() == lastMonth)
                 .collect(Collectors.toList());
 
-        int lestDay = monthListPurchase.stream().mapToInt(Purchase::getDay)
+        int lastDay = monthListPurchase.stream().mapToInt(Purchase::getDay)
                 .filter(p -> p >= 0).max().orElse(0);
 
         Collection<Purchase> dayListPurchase = monthListPurchase.stream()
-                .filter(p -> p.getDay() == lestDay)
+                .filter(p -> p.getDay() == lastDay)
                 .collect(Collectors.toList());
 
 
@@ -85,11 +85,11 @@ public class Statistics implements Serializable {
         MaxCategory maxYearCategory = (MaxCategory) definingCategories(yearListPurchase);
         MaxCategory maxMonthCategory = (MaxCategory) definingCategories(monthListPurchase);
         MaxCategory maxDayCategory = (MaxCategory) definingCategories(dayListPurchase);
-        reqest.put("maxCategory", maxCategory);
-        reqest.put("maxYearCategory", maxYearCategory);
-        reqest.put("maxMonthCategory", maxMonthCategory);
-        reqest.put("maxDayCategory", maxDayCategory);
-        return reqest;
+        request.put("maxCategory", maxCategory);
+        request.put("maxYearCategory", maxYearCategory);
+        request.put("maxMonthCategory", maxMonthCategory);
+        request.put("maxDayCategory", maxDayCategory);
+        return request;
     }
 
     private Object definingCategories(Collection<Purchase> purchases1) {

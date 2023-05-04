@@ -41,9 +41,9 @@ public class Main implements Serializable {
                     statistics.addPurchase(purchase);
 
                     GsonBuilder builder = new GsonBuilder();
-                    Gson gson1 = builder.setPrettyPrinting().create();
-                    out.write(gson1.toJson(statistics.statistic()));
-                    System.out.println(gson1.toJson(statistics.statistic()));
+                    gson = builder.setPrettyPrinting().create();
+                    out.write(gson.toJson(statistics.statistic()));
+                    System.out.println(gson.toJson(statistics.statistic()));
 
 
                 } catch (IOException ex) {
